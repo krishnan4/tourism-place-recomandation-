@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tourism Place Recommender Chatbot</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: url('https://img.freepik.com/premium-vector/dark-abstract-background-with-grunge-effect_278222-10487.jpg?semt=ais_hybrid&w=740') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat-container {
+      background-color: #2a2a2a;
+      border-radius: 15px;
+      padding: 25px;
+      width: 350px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .chat-container .logo {
+      display: block;
+      margin: 0 auto 10px;
+      width: 60px;
+    }
+
+    .chat-title {
+      text-align: center;
+      font-size: 24px;
+      color: #800080;
+      margin: 5px 0;
+    }
+
+    .chat-subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .to{
+        color: #a7085d;
+    }
+
+    .chat-log {
+      color: white;
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 10px;
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .user-message, .bot-message {
+      margin-bottom: 8px;
+    }
+
+    .user-message {
+      text-align: right;
+    }
+
+    .bot-message {
+      text-align: left;
+    }
+
+    .input-container {
+      display: flex;
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      padding: 5px;
+    }
+
+    #user-input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      outline: none;
+      background-color: #f0f0f0;
+    }
+
+    #send-button {
+      background-color: #800080;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-left: 5px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #send-button:hover {
+      background-color: #993399;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <img src="https://www.freepnglogos.com/uploads/logo-chatgpt-png/chatgpt-png-9.png" alt="Logo" class="logo">
+    <h1 class="chat-title">ChatBot</h1>
+    <p class="chat-subtitle">Ask some tourism place!</p>
+    <h2 class="to">Tourism Place Recommendation </h2>
+
+    <div id="chat-log" class="chat-log"></div>
+
+    <div class="input-container">
+      <input type="text" id="user-input" placeholder="Type your message..." />
+      <button id="send-button">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function addMessage(sender, message) {
+      const chatLog = document.getElementById("chat-log");
+      const msg = document.createElement("div");
+      msg.className = sender === "user" ? "user-message" : "bot-message";
+      msg.textContent = message;
+      chatLog.appendChild(msg);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function generateResponse(input) {
+      input = input.toLowerCase();
+      if (input.includes("beach")) return "Goa, Kovalam, and Gokarna are great beach destinations!";
+      if (input.includes("mountain")) return "Try Manali, Shimla, or Nainital for mountain vibes!";
+      if (input.includes("historical")) return "Agra, Jaipur, and Delhi have amazing historical sites!";
+      if (input.includes("food")) return "Enjoy food in Delhi, Chennai, Lucknow, or Goa!";
+      if (input.includes("temple")) return "Visit Tirupati, Rishikesh, or Varanasi for famous temples.";
+      if (input.includes("city")) return "Explore Mumbai, Delhi, Hyderabad, or Kolkata!";
+      return "Please ask about places like beach, mountain, city, food, temple, etc.";
+    }
+
+    document.getElementById("send-button").addEventListener("click", () => {
+      const userInput = document.getElementById("user-input");
+      const text = userInput.value.trim();
+      if (!text) return;
+      addMessage("user", text);
+      const response = generateResponse(text);
+      setTimeout(() => addMessage("bot", response), 500);
+      userInput.value = "";
+    });
+  </script>
+
+</body>
+</html>
